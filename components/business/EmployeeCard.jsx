@@ -3,13 +3,13 @@ import { Users, Edit, Trash2, Eye } from 'lucide-react';
 import Button from '../ui/Button';
 
 const EmployeeCard = ({ employee, subordinateCount, onEdit, onDelete, onViewConnections }) => (
-  <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow">
+<div className="bg-green-50 rounded-lg shadow-md p-4 border border-green-200 hover:shadow-lg transition-shadow">
     <div className="flex items-start justify-between">
       <div className="flex-1">
-        <h3 className="text-lg font-semibold text-gray-900">{employee.name}</h3>
-        <p className="text-gray-600 text-sm mb-2">{employee.title}</p>
-        <div className="flex items-center text-sm text-gray-500">
-          <Users className="w-4 h-4 mr-1" />
+        <h3 className="text-lg font-semibold text-green-900">{employee.name}</h3>
+        <p className="text-green-700 text-sm mb-2">{employee.title}</p>
+        <div className="flex items-center text-sm text-green-600">
+          <Users className="w-4 h-4 mr-1 text-green-500" />
           <span>{subordinateCount} subordinados</span>
         </div>
       </div>

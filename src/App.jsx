@@ -29,6 +29,7 @@ export default function App() {
   } = useEmployees();
 
   const [currentView, setCurrentView] = useState('cards');
+  const [sortOrder, setSortOrder] = useState('asc'); // 'asc' or 'desc'
 
   const renderModalContent = () => {
     switch (modalType) {
@@ -67,11 +68,22 @@ export default function App() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <Header onAddEmployee={handleAddEmployee} />
+  // Sort employees by subordinate count based on sortOrder
+  const sortedEmployees = [...employees].sort((a, b) => {
+    const countA = getSubordinateCount(a.id);
+    const countB = getSubordinateCount(b.id);
+    if (sortOrder === 'asc') {
+      return countA - countB;
+    } else {
+      return countB - countA;
+    }
+  });
 
-      <Navigation currentView={currentView} setCurrentView={setCurrentView} />
+  return (
+    <div className="min-h-screen bg-green-100">
+      <Header onAddEmployee={handleAddEmployee} currentView={currentView} setCurrentView={setCurrentView} />
+
+      {/* Navigation component removed as menu moved to Header */}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <StatsCards 
@@ -81,17 +93,31 @@ export default function App() {
         />
 
         {currentView === 'cards' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {employees.map(employee => (
-              <EmployeeCard
-                key={employee.id}
-                employee={employee}
-                subordinateCount={getSubordinateCount(employee.id)}
-                onEdit={handleEditEmployee}
-                onDelete={handleDeleteEmployee}
-                onViewConnections={handleViewConnections}
-              />
-            ))}
+          <div>
+            <div className="mb-4 flex items-center space-x-4">
+              <label htmlFor="sortOrder" className="text-green-900 font-medium">Ordenar por subordinados:</label>
+              <select
+                id="sortOrder"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                className="rounded-md border border-green-300 bg-green-50 text-green-900 px-2 py-1"
+              >
+                <option value="asc">Menos a más</option>
+                <option value="desc">Más a menos</option>
+              </select>
+            </div>
+            <div className="flex flex-col space-y-4">
+              {sortedEmployees.map(employee => (
+                <EmployeeCard
+                  key={employee.id}
+                  employee={employee}
+                  subordinateCount={getSubordinateCount(employee.id)}
+                  onEdit={handleEditEmployee}
+                  onDelete={handleDeleteEmployee}
+                  onViewConnections={handleViewConnections}
+                />
+              ))}
+            </div>
           </div>
         )}
 
