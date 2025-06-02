@@ -89,7 +89,7 @@ export default function App() {
         <StatsCards 
           employees={employees} 
           connections={connections} 
-          getRootEmployees={getRootEmployees} 
+          rootEmployeesCount={getRootEmployees().length} 
         />
 
         {currentView === 'cards' && (
