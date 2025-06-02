@@ -3,7 +3,7 @@ import React from 'react';
 const NetworkGraph = ({ employees, connections }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      <h3 className="text-lg font-semibold mb-4">Vista de Gráfico de Red</h3>
+      <h3 className="text-lg font-semibold mb-4">Grafo de Red de Conexiones</h3>
       <div className="relative bg-gray-50 rounded-lg p-4 min-h-96">
         <svg width="100%" height="400" className="border rounded">
           {employees.map((employee, index) => {
